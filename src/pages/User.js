@@ -3,14 +3,16 @@ import { FaCodepen,FaUsers,FaUserFriends,FaStore} from 'react-icons/fa';
 import GithubContext from '../context/github/GithubContext';
 import { useParams } from 'react-router-dom';
 import Spinner from '../components/layout/Spinner';
+import RepoList from '../components/repos/RepoList';
 import { Link } from 'react-router-dom';
 
 
 const User = () => {    
     const params = useParams();
-    const { getUser,user,loading } = useContext(GithubContext);
+    const { getUser,user,loading,getUserRepos,repos } = useContext(GithubContext);
     useEffect(()=>{
       getUser(params.login);
+      getUserRepos(params.login);
        // eslint-disable-next-line
     },[])
 
@@ -161,6 +163,7 @@ const User = () => {
             </div>
           </div>
         </div>
+        <RepoList repos = { repos } />
       </div>
       </>
     )
